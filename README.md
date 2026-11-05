@@ -22,3 +22,9 @@ Grupo: GTID241 · Matrícula: 1225100273
 ![Ronda 2 rojo](capturas/ronda2_rojo.png)
 #### Verde
 ![Ronda 2 verde](capturas/ronda2_verde.png)
+
+### Ronda 3 · API 1: Clima (Open-Meteo)
+#### Rojo
+![Ronda 3 rojo](capturas/ronda3_rojo.png)
+#### Verde
+![Ronda 3 verde](capturas/ronda3_verde.png)
