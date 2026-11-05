@@ -58,3 +58,13 @@ Grupo: GTID241 · Matrícula: 1225100273
 ![Ronda 8 rojo](capturas/ronda8_rojo.png)
 #### Verde
 ![Ronda 8 verde](capturas/ronda8_verde.png)
+
+### Ronda 9 · La pantalla y la prueba final
+#### Análisis y pruebas
+![Ronda 9 analyze](capturas/ronda9_analyze.png)
+#### Tablero con las 5 APIs
+![Ronda 9 tablero](capturas/ronda9_tablero.png)
+#### Sin conexión
+![Ronda 9 sin conexión](capturas/ronda9_sin_conexion.png)
+#### Clave falsa de la NASA
+![Ronda 9 clave falsa](capturas/ronda9_clave_falsa.png)
