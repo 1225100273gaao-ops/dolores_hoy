@@ -46,3 +46,12 @@ class TipoCambio {
 
   double pesosPorUnidad(String moneda) => 1 / tasas[moneda]!;
 }
+
+class Festivo {
+  final DateTime fecha;
+  final String nombre;
+  const Festivo(this.fecha, this.nombre);
+
+  factory Festivo.desdeJson(Map<String, dynamic> json) =>
+      Festivo(DateTime.parse(json['date'] as String), json['localName'] as String);
+}

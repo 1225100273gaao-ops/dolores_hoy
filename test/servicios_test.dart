@@ -46,4 +46,26 @@ void main() {
       expect(t.pesosPorUnidad('EUR'), closeTo(25.0, 0.0001));
     });
   });
+
+  group('API 3 · Festivos (Nager.Date)', () {
+    test('devuelve solo los próximos, en orden', () async {
+      final s = ServicioFestivos(seguro((req) async {
+        expect(req.url.path, '/api/v3/PublicHolidays/2026/MX');
+        return jsonOk(jsonFestivos);
+      }));
+      final r = await s.proximos(hoy: DateTime(2026, 10, 29), cuantos: 2);
+      expect(r.map((f) => f.nombre), ['Día de la Revolución', 'Navidad']);
+    });
+
+    test('incluye el festivo de hoy mismo', () async {
+      final s = ServicioFestivos(seguro((_) async => jsonOk(jsonFestivos)));
+      final r = await s.proximos(hoy: DateTime(2026, 12, 25), cuantos: 5);
+      expect(r.single.nombre, 'Navidad');
+    });
+
+    test('rechaza años absurdos', () {
+      final s = ServicioFestivos(seguro((_) async => jsonOk(jsonFestivos)));
+      expect(s.proximos(anio: 3000), throwsA(isA<EntradaInvalidaException>()));
+    });
+  });
 }

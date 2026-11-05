@@ -32,3 +32,25 @@ class ServicioCambio {
     return convertir(() => TipoCambio.desdeJson(json as Map<String, dynamic>));
   }
 }
+
+class ServicioFestivos {
+  final ClienteSeguro _c;
+  ServicioFestivos(this._c);
+
+  Future<List<Festivo>> proximos({int? anio, DateTime? hoy, int cuantos = 3}) async {
+    final ahora = hoy ?? DateTime.now();
+    final a = anio ?? ahora.year;
+    if (a < 2000 || a > 2100) {
+      throw const EntradaInvalidaException('año fuera de rango');
+    }
+    final json = await _c.obtenerJson(Uri.https('date.nager.at',
+        '/api/v3/PublicHolidays/$a/MX'));
+    final todos = convertir(() => (json as List)
+        .map((e) => Festivo.desdeJson(e as Map<String, dynamic>))
+        .toList());
+    final dia = DateTime(ahora.year, ahora.month, ahora.day);
+    final futuros = todos.where((f) => !f.fecha.isBefore(dia)).toList()
+      ..sort((x, y) => x.fecha.compareTo(y.fecha));
+    return futuros.take(cuantos).toList();
+  }
+}
