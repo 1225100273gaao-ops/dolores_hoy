@@ -52,3 +52,9 @@ Grupo: GTID241 · Matrícula: 1225100273
 ![Ronda 7 rojo](capturas/ronda7_rojo.png)
 #### Verde
 ![Ronda 7 verde](capturas/ronda7_verde.png)
+
+### Ronda 8 · El tablero: 5 APIs independientes
+#### Rojo
+![Ronda 8 rojo](capturas/ronda8_rojo.png)
+#### Verde
+![Ronda 8 verde](capturas/ronda8_verde.png)
