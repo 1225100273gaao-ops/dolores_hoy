@@ -13,3 +13,6 @@ Grupo: GTID241 · Matrícula: 1225100273
 ### Ronda 0 · Preparar el taller
 #### Secretos fuera del repositorio
 ![Ronda 0 secretos](capturas/ronda0_secretos.png)
+
+### Ronda 1 · Conociendo las 5 APIs
+![Ronda 1 APIs](capturas/ronda1_apis.png)
