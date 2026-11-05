@@ -28,3 +28,9 @@ Grupo: GTID241 · Matrícula: 1225100273
 ![Ronda 3 rojo](capturas/ronda3_rojo.png)
 #### Verde
 ![Ronda 3 verde](capturas/ronda3_verde.png)
+
+### Ronda 4 · API 2: Tipo de cambio (Frankfurter)
+#### Rojo
+![Ronda 4 rojo](capturas/ronda4_rojo.png)
+#### Verde
+![Ronda 4 verde](capturas/ronda4_verde.png)

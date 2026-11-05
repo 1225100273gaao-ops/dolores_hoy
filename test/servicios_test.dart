@@ -35,4 +35,15 @@ void main() {
       expect(describirClima(95).$2, 'Tormenta');
     });
   });
+
+  group('API 2 · Tipo de cambio (Frankfurter)', () {
+    test('calcula pesos por dólar invirtiendo la tasa', () async {
+      final s = ServicioCambio(seguro((_) async => jsonOk({
+            'base': 'MXN', 'date': '2026-10-28', 'rates': {'USD': 0.05, 'EUR': 0.04}
+          })));
+      final t = await s.deMxn();
+      expect(t.pesosPorUnidad('USD'), closeTo(20.0, 0.0001));
+      expect(t.pesosPorUnidad('EUR'), closeTo(25.0, 0.0001));
+    });
+  });
 }

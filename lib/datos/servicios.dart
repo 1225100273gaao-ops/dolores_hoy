@@ -19,3 +19,16 @@ class ServicioClima {
     return convertir(() => Clima.desdeJson(json as Map<String, dynamic>));
   }
 }
+
+class ServicioCambio {
+  final ClienteSeguro _c;
+  ServicioCambio(this._c);
+
+  Future<TipoCambio> deMxn() async {
+    final json = await _c.obtenerJson(Uri.https('api.frankfurter.dev', '/v1/latest', {
+      'base': 'MXN',
+      'symbols': 'USD,EUR',
+    }));
+    return convertir(() => TipoCambio.desdeJson(json as Map<String, dynamic>));
+  }
+}

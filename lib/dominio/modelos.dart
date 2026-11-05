@@ -30,3 +30,19 @@ class Clima {
   if (codigo >= 95) return ('⛈️', 'Tormenta');
   return ('🌡', 'Clima variable');
 }
+
+class TipoCambio {
+  final String base;
+  final DateTime fecha;
+  final Map<String, double> tasas;
+  const TipoCambio(this.base, this.fecha, this.tasas);
+
+  factory TipoCambio.desdeJson(Map<String, dynamic> json) => TipoCambio(
+        json['base'] as String,
+        DateTime.parse(json['date'] as String),
+        (json['rates'] as Map<String, dynamic>)
+            .map((k, v) => MapEntry(k, (v as num).toDouble())),
+      );
+
+  double pesosPorUnidad(String moneda) => 1 / tasas[moneda]!;
+}
