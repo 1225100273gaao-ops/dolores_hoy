@@ -55,3 +55,19 @@ class Festivo {
   factory Festivo.desdeJson(Map<String, dynamic> json) =>
       Festivo(DateTime.parse(json['date'] as String), json['localName'] as String);
 }
+
+class ResumenWiki {
+  final String titulo;
+  final String extracto;
+  final String? urlImagen;
+  const ResumenWiki(this.titulo, this.extracto, this.urlImagen);
+
+  factory ResumenWiki.desdeJson(Map<String, dynamic> json) {
+    final miniatura = json['thumbnail'] as Map<String, dynamic>?;
+    return ResumenWiki(
+      json['title'] as String,
+      json['extract'] as String,
+      soloHttps(miniatura?['source']),
+    );
+  }
+}

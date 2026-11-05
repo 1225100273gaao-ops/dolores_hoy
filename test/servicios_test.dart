@@ -68,4 +68,42 @@ void main() {
       expect(s.proximos(anio: 3000), throwsA(isA<EntradaInvalidaException>()));
     });
   });
+
+  group('API 4 · Wikipedia', () {
+    test('pide el resumen del tema con guiones bajos', () async {
+      final s = ServicioWikipedia(seguro((req) async {
+        expect(req.url.host, 'es.wikipedia.org');
+        expect(req.url.pathSegments.last, 'Dolores_Hidalgo');
+        return jsonOk(jsonWiki);
+      }));
+      final r = await s.resumen('Dolores Hidalgo');
+      expect(r.titulo, 'Dolores Hidalgo');
+      expect(r.urlImagen, startsWith('https://'));
+    });
+
+    test('un tema con "/" NO puede escapar de la ruta (path injection)', () async {
+      final s = ServicioWikipedia(seguro((req) async {
+        expect(req.url.pathSegments.length, 5);
+        expect(req.url.pathSegments.last, '../../admin');
+        return jsonOk(jsonWiki);
+      }));
+      await s.resumen('../../admin');
+    });
+
+    test('rechaza vacío, demasiado largo y caracteres de control', () {
+      expect(() => ServicioWikipedia.normalizarTema('  '),
+          throwsA(isA<EntradaInvalidaException>()));
+      expect(() => ServicioWikipedia.normalizarTema('a' * 81),
+          throwsA(isA<EntradaInvalidaException>()));
+      expect(() => ServicioWikipedia.normalizarTema('hola\nmundo'),
+          throwsA(isA<EntradaInvalidaException>()));
+    });
+
+    test('ignora miniaturas que no sean https', () async {
+      final s = ServicioWikipedia(seguro((_) async => jsonOk({
+            'title': 'X', 'extract': 'Y', 'thumbnail': {'source': 'http://inseguro.com/a.jpg'}
+          })));
+      expect((await s.resumen('X')).urlImagen, isNull);
+    });
+  });
 }

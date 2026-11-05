@@ -40,3 +40,9 @@ Grupo: GTID241 · Matrícula: 1225100273
 ![Ronda 5 rojo](capturas/ronda5_rojo.png)
 #### Verde
 ![Ronda 5 verde](capturas/ronda5_verde.png)
+
+### Ronda 6 · API 4: Wikipedia
+#### Rojo
+![Ronda 6 rojo](capturas/ronda6_rojo.png)
+#### Verde
+![Ronda 6 verde](capturas/ronda6_verde.png)

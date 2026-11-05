@@ -54,3 +54,29 @@ class ServicioFestivos {
     return futuros.take(cuantos).toList();
   }
 }
+
+class ServicioWikipedia {
+  final ClienteSeguro _c;
+  ServicioWikipedia(this._c);
+
+  static String normalizarTema(String tema) {
+    final t = tema.trim();
+    if (t.isEmpty) throw const EntradaInvalidaException('escribe un tema');
+    if (t.length > 80) throw const EntradaInvalidaException('tema demasiado largo');
+    if (t.contains(RegExp(r'[\x00-\x1F]'))) {
+      throw const EntradaInvalidaException('caracteres no permitidos');
+    }
+    return t.replaceAll(' ', '_');
+  }
+
+  Future<ResumenWiki> resumen(String tema) async {
+    final t = normalizarTema(tema);
+    final uri = Uri(
+      scheme: 'https',
+      host: 'es.wikipedia.org',
+      pathSegments: ['api', 'rest_v1', 'page', 'summary', t],
+    );
+    final json = await _c.obtenerJson(uri);
+    return convertir(() => ResumenWiki.desdeJson(json as Map<String, dynamic>));
+  }
+}
