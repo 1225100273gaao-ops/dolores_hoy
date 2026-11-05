@@ -71,3 +71,18 @@ class ResumenWiki {
     );
   }
 }
+
+class FotoAstronomica {
+  final String titulo;
+  final String explicacion;
+  final DateTime fecha;
+  final String? urlImagen;
+  const FotoAstronomica(this.titulo, this.explicacion, this.fecha, this.urlImagen);
+
+  factory FotoAstronomica.desdeJson(Map<String, dynamic> json) => FotoAstronomica(
+        json['title'] as String,
+        json['explanation'] as String,
+        DateTime.parse(json['date'] as String),
+        json['media_type'] == 'image' ? soloHttps(json['url']) : null,
+      );
+}

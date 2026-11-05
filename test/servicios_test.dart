@@ -1,3 +1,4 @@
+import 'package:dolores_hoy/datos/config_claves.dart';
 import 'package:dolores_hoy/datos/servicios.dart';
 import 'package:dolores_hoy/dominio/excepciones.dart';
 import 'package:dolores_hoy/dominio/modelos.dart';
@@ -104,6 +105,54 @@ void main() {
             'title': 'X', 'extract': 'Y', 'thumbnail': {'source': 'http://inseguro.com/a.jpg'}
           })));
       expect((await s.resumen('X')).urlImagen, isNull);
+    });
+  });
+
+  group('API 5 · NASA APOD (con clave)', () {
+    test('manda la clave como parámetro api_key', () async {
+      final s = ServicioNasa(
+          seguro((req) async {
+            expect(req.url.host, 'api.nasa.gov');
+            expect(req.url.queryParameters['api_key'], 'MI_CLAVE');
+            return jsonOk(jsonNasa);
+          }),
+          const ConfigClaves(nasa: 'MI_CLAVE'));
+      final f = await s.fotoDelDia();
+      expect(f.titulo, 'Nebulosa de ejemplo');
+      expect(f.urlImagen, isNotNull);
+    });
+
+    test('sin clave ni siquiera hace la petición', () {
+      var llamado = false;
+      final s = ServicioNasa(
+          seguro((_) async {
+            llamado = true;
+            return jsonOk(jsonNasa);
+          }),
+          const ConfigClaves(nasa: ' '));
+      expect(s.fotoDelDia(), throwsA(isA<ClaveFaltanteException>()));
+      expect(llamado, false);
+    });
+
+    test('si la NASA publica un video, no hay imagen que mostrar', () async {
+      final s = ServicioNasa(
+          seguro((_) async => jsonOk({...jsonNasa, 'media_type': 'video', 'url': 'https://youtube.com/x'})),
+          const ConfigClaves(nasa: 'K'));
+      expect((await s.fotoDelDia()).urlImagen, isNull);
+    });
+
+    test('una URL de imagen http:// se descarta', () async {
+      final s = ServicioNasa(
+          seguro((_) async => jsonOk({...jsonNasa, 'url': 'http://apod.nasa.gov/a.jpg'})),
+          const ConfigClaves(nasa: 'K'));
+      expect((await s.fotoDelDia()).urlImagen, isNull);
+    });
+
+    test('403 explica que la clave no es válida', () {
+      final s = ServicioNasa(
+          seguro((_) async => jsonOk({}, 403)), const ConfigClaves(nasa: 'MALA'));
+      expect(s.fotoDelDia(),
+          throwsA(isA<ErrorServidorException>().having((e) => e.toString(), 'm', contains('clave'))));
     });
   });
 }

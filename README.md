@@ -46,3 +46,9 @@ Grupo: GTID241 · Matrícula: 1225100273
 ![Ronda 6 rojo](capturas/ronda6_rojo.png)
 #### Verde
 ![Ronda 6 verde](capturas/ronda6_verde.png)
+
+### Ronda 7 · API 5: NASA y manejo seguro de claves
+#### Rojo
+![Ronda 7 rojo](capturas/ronda7_rojo.png)
+#### Verde
+![Ronda 7 verde](capturas/ronda7_verde.png)
