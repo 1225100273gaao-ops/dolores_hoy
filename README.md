@@ -16,3 +16,9 @@ Grupo: GTID241 · Matrícula: 1225100273
 
 ### Ronda 1 · Conociendo las 5 APIs
 ![Ronda 1 APIs](capturas/ronda1_apis.png)
+
+### Ronda 2 · Cimientos seguros: ClienteSeguro
+#### Rojo
+![Ronda 2 rojo](capturas/ronda2_rojo.png)
+#### Verde
+![Ronda 2 verde](capturas/ronda2_verde.png)
